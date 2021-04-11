@@ -1,50 +1,19 @@
-export const videos = [
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config()
+
+mongoose.connect(process.env.MONGO_URL, 
     {
-        id: 324533,
-        title: 'Video 1',
-        description: 'THis one Video',
-        views: 24,
-        videoFile:"https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        creator: {
-            id: 121212,
-            name:"Nicolas",
-            email:"nico@las.com"
-        }
-    },
-    {
-        id: 4533,
-        title: 'Video 2',
-        description: 'THis one Video',
-        views: 24,
-        videoFile:"https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        creator: {
-            id: 121212,
-            name:"Nicolas",
-            email:"nico@las.com"
-        }
-    },
-    {
-        id: 78321,
-        title: 'Video 3',
-        description: 'THis one Video',
-        views: 24,
-        videoFile:"https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        creator: {
-            id: 121212,
-            name:"Nicolas",
-            email:"nico@las.com"
-        }
-    },
-    {
-        id: 78345,
-        title: 'Video 4',
-        description: 'THis one Video',
-        views: 24,
-        videoFile:"https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        creator: {
-            id: 121212,
-            name:"Nicolas",
-            email:"nico@las.com"
-        }
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
     }
-]
+); // mongod 했을때 나오는 PORT
+
+const db = mongoose.connection;
+
+const handleOpen = () => console.log("Connected to DB")
+const handleError = (error) => console.log(`x Error on DB connection:${error}`)
+
+db.once("open", handleOpen);
+db.on("error", handleError);
